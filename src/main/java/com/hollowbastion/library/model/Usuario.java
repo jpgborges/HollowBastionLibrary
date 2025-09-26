@@ -2,6 +2,9 @@ package com.hollowbastion.library.model;
 
 import jakarta.persistence.*;
 
+/**
+ * Entidade que representa um usuário do sistema.
+ */
 @Entity
 public class Usuario {
 

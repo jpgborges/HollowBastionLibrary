@@ -16,22 +16,45 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Controlador responsável pelas operações de autenticação.
+ * Fornece endpoints para relacionados a autenticação.
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     private final UsuarioService usuarioService;
 
+    /**
+     * Construtor para injeção do serviço de usuários.
+     *
+     * @param usuarioService serviço de gerenciamento de usuários
+     */
     public AuthController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
+    /**
+     * Registra um novo usuário no sistema.
+     *
+     * @param request mapa contendo os campos "username" e "password"
+     * @return usuário criado em caso de sucesso
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, String> request) {
         Usuario usuario = usuarioService.registrarUsuario(request.get("username"), request.get("password"));
         return ResponseEntity.ok(usuario);
     }
 
+    /**
+     * Realiza a autenticação de um usuário.
+     * Verifica as credenciais e retorna um token JWT se forem válidas.
+     *
+     * @param request mapa contendo os campos "username" e "password"
+     * @return token JWT em caso de sucesso,
+     * ou mensagem de erro com status 401 se inválidas
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
         Optional<Usuario> usuario = usuarioService.buscarPorUsername(request.get("username"));
