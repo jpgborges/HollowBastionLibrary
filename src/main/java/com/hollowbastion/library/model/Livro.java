@@ -6,7 +6,6 @@ import jakarta.persistence.*;
  * Entidade que representa um livro no sistema.
  */
 @Entity
-@Table(name = "livro")
 public class Livro {
 
     @Id
